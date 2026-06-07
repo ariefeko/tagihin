@@ -25,4 +25,3 @@ Tagihin adalah aplikasi manajemen billing laundry yang dibangun dengan fokus pad
 2. `./vendor/bin/sail up -d`
 3. `composer install` & `npm install`
 4. `php artisan migrate`
-# test context builder

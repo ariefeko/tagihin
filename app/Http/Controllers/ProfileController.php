@@ -82,4 +82,24 @@ class ProfileController extends Controller
 
         return response()->json($users);
     }
+    
+    public function dangerousMethod(Request $request)
+    {
+        // BUG 1: SQL Injection
+        $id = $request->input('id');
+        $user = DB::select("SELECT * FROM users WHERE id = '$id'");
+
+        // BUG 2: Hardcoded secret
+        $stripe_key = "sk_live_abcdefghijklmnop123456";
+
+        // BUG 3: No auth check
+        $target_user = User::find($request->input('user_id'));
+        $target_user->fill($request->all());
+        $target_user->save();
+
+        // BUG 4: XSS
+        echo $request->input('comment');
+
+        return response()->json($user);
+    }
 }
